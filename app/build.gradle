@@ -1,27 +1,28 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    namespace "com.apkeditor"
+    compileSdkVersion 34
+    // buildToolsVersion "33.0.0" // Removed, AGP 8.x derives it
 
     defaultConfig {
         applicationId "com.beingyi.app.AE"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion 21
+        targetSdkVersion 34
         versionCode 178
         versionName "1.2"
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
 
     signingConfigs {
-        signConfig {
-            storeFile file('E:\\MyData\\AndroidProjects\\beingyi.jks')
-            storePassword ""
-            keyAlias "beingyi"
-            keyPassword ""
-        }
+        // signConfig {
+        //     storeFile file('E:\\MyData\\AndroidProjects\\beingyi.jks')
+        //     storePassword ""
+        //     keyAlias "beingyi"
+        //     keyPassword ""
+        // }
     }
 
     buildTypes {
@@ -29,12 +30,12 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.signConfig
+            // signingConfig signingConfigs.signConfig // This line is now commented out
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.signConfig
+            // signingConfig signingConfigs.signConfig // Removed to use default debug keystore
         }
     }
 
@@ -73,10 +74,6 @@ android {
         ignoreWarnings true
     }
 
-    dexOptions {
-        preDexLibraries = false
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -92,18 +89,10 @@ dependencies {
     //implementation 'com.android.support:appcompat-v7:25.3.1'
     //implementation 'com.android.support:support-v4:25.3.1'
     //implementation 'com.android.support:support-annotations:25.3.1'
-    implementation('com.android.support:design:28.0.0') {
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude module: 'support-annotations'
-    }
-    implementation('com.android.support:appcompat-v7:28.0.0') {
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude module: 'support-annotations'
-    }
-    implementation('com.android.support:support-v4:28.0.0') {
-        exclude module: 'support-annotations'
-    }
-    //implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    //implementation 'com.android.support:support-annotations:28.0.0'  // Remove, annotations are transitive or use androidx.annotation
     implementation 'org.xutils:xutils:3.6.20'
     //implementation 'asm:asm-all:3.3.1'
     implementation('ren.qinc.edit:lib:0.0.5') {
